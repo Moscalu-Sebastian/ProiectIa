@@ -1,0 +1,52 @@
+{
+    "nume_retea": "Simple Security Incident",
+    "straturi": {
+        "1_Cauze_Initiale": [
+            {
+                "nume": "Phishing_Email",
+                "parinti": [],
+                "valori": ["True", "False"],
+                "cpt": { "root": { "True": 0.2, "False": 0.8 } }
+            },
+            {
+                "nume": "Parola_Slaba",
+                "parinti": [],
+                "valori": ["True", "False"],
+                "cpt": { "root": { "True": 0.3, "False": 0.7 } }
+            }
+        ],
+        "2_Eveniment_Central": [
+            {
+                "nume": "Sistem_Compromis",
+                "parinti": ["Phishing_Email", "Parola_Slaba"],
+                "valori": ["True", "False"],
+                "cpt": {
+                    "True,True": { "True": 0.95, "False": 0.05 },
+                    "True,False": { "True": 0.6, "False": 0.4 },
+                    "False,True": { "True": 0.5, "False": 0.5 },
+                    "False,False": { "True": 0.01, "False": 0.99 }
+                }
+            }
+        ],
+        "3_Consecinte": [
+            {
+                "nume": "Data_Loss",
+                "parinti": ["Sistem_Compromis"],
+                "valori": ["Yes", "No"],
+                "cpt": {
+                    "True": { "Yes": 0.8, "No": 0.2 },
+                    "False": { "Yes": 0.05, "No": 0.95 }
+                }
+            },
+            {
+                "nume": "Service_Downtime",
+                "parinti": ["Sistem_Compromis"],
+                "valori": ["High", "Low"],
+                "cpt": {
+                    "True": { "High": 0.7, "Low": 0.3 },
+                    "False": { "High": 0.1, "Low": 0.9 }
+                }
+            }
+        ]
+    }
+}

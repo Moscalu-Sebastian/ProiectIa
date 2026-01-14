@@ -1,0 +1,66 @@
+{
+  "straturi": {
+    "Nivel_1_Ingestion": [
+      {
+        "nume": "Network_Traffic",
+        "parinti": [],
+        "valori": ["High", "Normal"],
+        "cpt": {
+          "root": {"High": 0.3, "Normal": 0.7}
+        }
+      },
+      {
+        "nume": "System_Logs",
+        "parinti": [],
+        "valori": ["Errors", "Clean"],
+        "cpt": {
+          "root": {"Errors": 0.2, "Clean": 0.8}
+        }
+      }
+    ],
+    "Nivel_2_Analysis": [
+      {
+        "nume": "Anomaly_Detector",
+        "parinti": ["Network_Traffic"],
+        "valori": ["Detected", "None"],
+        "cpt": {
+          "High": {"Detected": 0.9, "None": 0.1},
+          "Normal": {"Detected": 0.05, "None": 0.95}
+        }
+      },
+      {
+        "nume": "Auth_Monitor",
+        "parinti": ["System_Logs"],
+        "valori": ["Failed", "Success"],
+        "cpt": {
+          "Errors": {"Failed": 0.8, "Success": 0.2},
+          "Clean": {"Failed": 0.01, "Success": 0.99}
+        }
+      }
+    ],
+    "Nivel_3_Threats": [
+      {
+        "nume": "Cyber_Attack",
+        "parinti": ["Anomaly_Detector", "Auth_Monitor"],
+        "valori": ["Yes", "No"],
+        "cpt": {
+          "Detected,Failed": {"Yes": 0.99, "No": 0.01},
+          "Detected,Success": {"Yes": 0.6, "No": 0.4},
+          "None,Failed": {"Yes": 0.4, "No": 0.6},
+          "None,Success": {"Yes": 0.01, "No": 0.99}
+        }
+      }
+    ],
+    "Nivel_4_Response": [
+      {
+        "nume": "Action_Taken",
+        "parinti": ["Cyber_Attack"],
+        "valori": ["Block_IP", "Log_Only"],
+        "cpt": {
+          "Yes": {"Block_IP": 0.95, "Log_Only": 0.05},
+          "No": {"Block_IP": 0.0, "Log_Only": 1.0}
+        }
+      }
+    ]
+  }
+}
